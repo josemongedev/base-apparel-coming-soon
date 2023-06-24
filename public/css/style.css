@@ -360,8 +360,3 @@ footer a {
 footer a:hover {
   color: var(--clr-primary-desaturated-red);
 }
-
-@media (min-width: 1440px) {
-  footer {
-  }
-}
