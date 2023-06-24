@@ -1,28 +1,309 @@
 @font-face {
   font-family: "Josefin Sans";
-  src: url(" ./fonts/JosefinSans-Light.ttf");
+  src: url(../fonts/JosefinSans-Light.ttf);
   font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Josefin Sans";
-  src: url(" ./fonts/JosefinSans-Regular.ttf");
+  src: url(../fonts/JosefinSans-Regular.ttf);
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Josefin Sans";
-  src: url(" ./fonts/JosefinSans-SemiBold.ttf");
+  src: url(../fonts/JosefinSans-SemiBold.ttf);
   font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
 
 :root {
+  /* Fonts */
+  /* ### Family */
   --ff-body: "Josefin Sans", sans-serif;
+
+  /* ### Weights */
   --fw-light: 300;
   --fw-normal: 400;
   --fw-bold: 600;
+
+  /* ### Size */
+  --fs-body: 16px;
+
+  /* Colors */
+  /* ### Primary */
+  /* - Desaturated Red: hsl(0, 36%, 70%) */
+  --clr-primary-desaturated-red: hsl(0, 36%, 70%);
+  /* - Soft Red: hsl(0, 93%, 68%) */
+  --clr-primary-soft-red: hsl(0, 93%, 68%);
+
+  /* ### Neutral */
+  /* - Dark Grayish Red: hsl(0, 6%, 24%) */
+  --clr-neutral-dark-grayish-red: hsl(0, 6%, 24%);
+
+  /* ### Gradients */
+  /* - Linear, 135deg, from hsl(0, 0%, 100%), to hsl(0, 100%, 98%) */
+  --linear-gradient-bg: linear-gradient(
+    150.03deg,
+    hsl(0, 0%, 100%) 0%,
+    hsl(0, 100%, 98%) 84.51%
+  );
+  /* - Linear, 135deg, from hsl(0, 80%, 86%), to hsl(0, 74%, 74%) */
+  --linear-gradient-button: linear-gradient(
+    135deg,
+    hsl(0, 80%, 86%) 0%,
+    hsl(0, 74%, 74%) 100%
+  );
+  --linear-gradient-button-hover: linear-gradient(
+    135deg,
+    hsl(0, 80%, 86%, 0.5) 0%,
+    hsla(0, 74%, 74%, 0.5) 100%
+  );
+  /* According to Figma this is the SVG gradient */
+  --linear-gradient-svg: linear-gradient(
+    221.42deg,
+    hsl(0, 100%, 97%) 2.6%,
+    hsl(0, 0%, 100%) 96.36%
+  );
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--ff-body);
+  font-size: var(--fs-body);
+  color: var(--clr-primary-desaturated-red);
+
+  display: grid;
+  place-items: center;
+}
+
+/* Containers styles */
+.container {
+  max-width: 1440px;
+  max-height: 800px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto auto;
+  grid-template-areas:
+    "logo"
+    "apparel"
+    "content";
+  /* place-items: center; */
+
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+  background-image: var(--linear-gradient-bg);
+}
+
+@media (min-width: 1440px) {
+  .container {
+    grid-template-columns: 830px 610px;
+    grid-template-rows: calc(2 * 65.76px + 31.502) 1fr;
+    grid-template-areas:
+      "logo apparel"
+      "content apparel";
+    /* place-items: center start; */
+  }
+}
+
+/* Grid areas */
+.container__bg {
+  grid-column: 1 / 2;
+  grid-row: 1 / 3;
+  z-index: 1;
+}
+.container__brand {
+  grid-area: logo;
+  z-index: 2;
+}
+.container__apparel {
+  grid-area: apparel;
+  z-index: 2;
+}
+.container__content {
+  grid-area: content;
+  z-index: 2;
+}
+
+/* Background container */
+.container__bg {
+  display: none;
+  visibility: none;
+}
+@media (min-width: 1440px) {
+  .container__bg {
+    display: block;
+    visibility: visible;
+    -webkit-mask-image: var(--linear-gradient-svg);
+    mask-image: var(--linear-gradient-svg);
+  }
+}
+
+/* Content and brand containers */
+.container__content,
+.container__brand {
+  margin-left: 165px;
+}
+
+.container__brand {
+  align-self: center;
+}
+
+.container__content {
+  width: 445px;
+  height: 404px;
+  place-items: start;
+  align-content: stretch;
+}
+
+/* Content elements */
+.content__card {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.content__card > * {
+  width: 100%;
+}
+
+.card__heading {
+  color: var(--clr-neutral-dark-grayish-red);
+  font-size: 64px;
+  font-weight: 600;
+  line-height: 64px;
+  letter-spacing: 17.321px;
+  text-transform: uppercase;
+}
+
+.card__heading .heading-highlight {
+  color: var(--clr-primary-desaturated-red);
+  font-weight: 300;
+}
+
+/* Form elements */
+/* Rectangle */
+.card__form {
+  padding: 0;
+  margin-top: 8px;
+  width: 100%;
+  border-radius: 28px;
+  width: 445px;
+  height: 56px;
+  border-radius: 28px;
+  border: 1px solid #ce9898;
+}
+.card__form:invalid {
+  border-color: var(--clr-primary-soft-red);
+}
+
+.form__field {
+  padding: 0;
+  margin: 0;
+  appearance: none;
+  outline: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.form__email {
+  color: var(--clr-neutral-dark-grayish-red);
+  background-color: none;
+  padding: 0;
+  outline: none;
+  margin-left: 32px;
+  width: 100%;
+  border: none;
+  background: none;
+  line-height: 28px;
+}
+.form__email::placeholder {
+  opacity: 0.5;
+}
+.email__error-icon {
+  display: none;
+  padding-right: 16px;
+}
+.form__button {
+  position: relative;
+  z-index: 3;
+  top: -2px;
+  left: 2px;
+  padding: 0;
+  border: 1px solid #ce9898;
+  border: none;
+  border-radius: 28px;
+  width: 100px;
+  height: 58px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  background: var(--linear-gradient-button);
+  box-shadow: 0px 15px 20px rgba(198, 110, 110, 0.247569);
+  cursor: pointer;
+}
+.overlay {
+  display: none;
+}
+.form__button:hover > .overlay {
+  position: absolute;
+  z-index: 4;
+  display: block;
+  top: 0px;
+  left: 0px;
+  /* opacity: 0.5; */
+  width: 100px;
+  height: 58px;
+  background-color: hsl(0, 0%, 100%, 0.5);
+  border-radius: 28px;
+
+  /* background: linear-gradient(
+    135deg,
+    hsl(0, 80%, 86%) 0%,
+    hsla(0, 74%, 74%) 100%
+  ); */
+  /* background: linear-gradient(135deg, #f8bfbf, #ee8b8b);
+  background: #ce9898;
+  opacity: 0.5; */
+
+  /* background: rgba(255, 255, 255, 0.5), var(--linear-gradient-button); */
+}
+
+.form__error {
+  display: none;
+  margin-top: 4px;
+  margin-left: calc(197px - 165px);
+  color: #f96464;
+  font-size: 13px;
+  line-height: 28px;
+}
+.form__field:focus-within:invalid + .form__error {
+  display: block;
+}
+.form__field:focus-within:invalid .email__error-icon {
+  display: inline-block;
+}
+/* Footer styles */
+footer {
+  background-color: white;
+  color: var(--clr-neutral-dark-grayish-red);
+}
+
+footer a:visited,
+footer a:active,
+footer a {
+  text-decoration: none;
+  color: var(--clr-primary-soft-red);
+}
+
+footer a:hover {
+  color: var(--clr-primary-desaturated-red);
 }
