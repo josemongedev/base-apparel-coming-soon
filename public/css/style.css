@@ -179,6 +179,8 @@ body {
 
     width: 445px;
     height: 404px;
+    justify-self: start;
+
     text-align: left;
   }
 }
